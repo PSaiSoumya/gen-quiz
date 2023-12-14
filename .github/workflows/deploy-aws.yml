@@ -58,11 +58,7 @@ jobs:
         rsync -r --exclude 'node_modules' --exclude 'storage' --exclude '.git/' --delete-after -e "ssh -o StrictHostKeyChecking=no -i private_key" . ${USERNAME}@${HOSTNAME}:/var/www/gen-quiz
         ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME} '
             cd /var/www/gen-quiz && 
-            php artisan storage:link &&
-            touch laravel &&
-            php artisan migrate:fresh --seed &&
-            sudo chown -R www-data:www-data ./ &&
-            sudo chmod -R 777 storage
+            sudo chown -R www-data:www-data ./ 
         '
         
         
