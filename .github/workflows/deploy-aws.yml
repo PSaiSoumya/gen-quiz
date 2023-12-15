@@ -63,5 +63,4 @@ jobs:
             cd /var/www/gen-quiz/ && 
             sudo chown -R www-data:www-data ./ &&
             php artisan migrate --no-interaction &&
-            php artisan db:seed --no-interaction
         '
