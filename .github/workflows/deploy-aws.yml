@@ -49,7 +49,6 @@ jobs:
           ENV : ${{ secrets.ENV  }}
       run: |
         echo "$ENV" > .env
-        echo "yes"
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
 
         ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME} '
@@ -62,5 +61,6 @@ jobs:
             cd /var/www/gen-quiz && 
             sudo chown -R www-data:www-data ./ &&
             php artisan migrate --seed
+            echo "yes"
 
         '
