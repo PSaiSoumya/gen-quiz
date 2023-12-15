@@ -49,6 +49,7 @@ jobs:
           ENV : ${{ secrets.ENV  }}
       run: |
         echo "$ENV" > .env
+        cp .env.example .env
         php artisan key:generate
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
 
