@@ -62,5 +62,5 @@ jobs:
         ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME} '
             cd /var/www/gen-quiz/ && 
             sudo chown -R www-data:www-data ./ &&
-            php artisan migrate --no-interaction &&
+            php artisan migrate --no-interaction
         '
