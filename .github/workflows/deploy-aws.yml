@@ -41,6 +41,10 @@ jobs:
     - name: Build Backend Code
       run: composer install --prefer-dist
 
+      # Generate application key
+    - name: Generate Application Key
+      run: php artisan key:generate
+
     - name: Deploy Laravel code
       env:
           PRIVATE_KEY: ${{ secrets.AWS_PEM_KEY  }}
@@ -59,5 +63,7 @@ jobs:
         rsync -r --exclude 'node_modules' --exclude 'storage' --exclude '.git/' --delete-after -e "ssh -o StrictHostKeyChecking=no -i private_key" . ${USERNAME}@${HOSTNAME}:/var/www/gen-quiz/
         ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME} '
             cd /var/www/gen-quiz/ && 
-            sudo chown -R www-data:www-data ./
+            sudo chown -R www-data:www-data ./ &&
+            php artisan migrate --no-interaction &&
+            php artisan db:seed --no-interaction
         '
