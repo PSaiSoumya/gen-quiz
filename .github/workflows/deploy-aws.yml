@@ -48,7 +48,8 @@ jobs:
           USERNAME : ${{ secrets.USERNAME  }}
           ENV : ${{ secrets.ENV  }}
       run: |
-        echo "yes" | echo "$ENV" > .env
+        echo "$ENV" > .env
+        echo "yes"
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
 
         ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME} '
