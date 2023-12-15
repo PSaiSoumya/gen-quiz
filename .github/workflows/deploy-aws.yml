@@ -41,10 +41,6 @@ jobs:
     - name: Build Backend Code
       run: composer install --prefer-dist
 
-      # Generate application key
-    - name: Generate Application Key
-      run: php artisan key:generate
-
     - name: Deploy Laravel code
       env:
           PRIVATE_KEY: ${{ secrets.AWS_PEM_KEY  }}
@@ -53,6 +49,7 @@ jobs:
           ENV : ${{ secrets.ENV  }}
       run: |
         echo "$ENV" > .env
+        php artisan key:generate
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
 
         ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME} '
